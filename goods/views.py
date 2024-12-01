@@ -1,5 +1,7 @@
 from django.http import Http404
 from django.views.generic import DetailView, ListView
+from django.shortcuts import get_object_or_404
+
 
 from goods.models import Products
 from goods.utils import q_search
@@ -7,16 +9,13 @@ from goods.utils import q_search
 
 class CatalogView(ListView):
     model = Products
-    # queryset = Products.objects.all().order_by("-id")
     template_name = "goods/catalog.html"
     context_object_name = "goods"
     paginate_by = 3
-    allow_empty = False
-    # чтоб удобно передать в методы
-    slug_url_kwarg = "category_slug"
+    allow_empty = True  # Разрешаем пустые списки
 
     def get_queryset(self):
-        category_slug = self.kwargs.get(self.slug_url_kwarg)
+        category_slug = self.kwargs.get('category_slug')
         on_sale = self.request.GET.get("on_sale")
         order_by = self.request.GET.get("order_by")
         query = self.request.GET.get("q")
@@ -27,8 +26,6 @@ class CatalogView(ListView):
             goods = q_search(query)
         else:
             goods = super().get_queryset().filter(category__slug=category_slug)
-            if not goods.exists():
-                raise Http404()
 
         if on_sale:
             goods = goods.filter(discount__gt=0)
@@ -41,22 +38,22 @@ class CatalogView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Home - Каталог"
-        context["slug_url"] = self.kwargs.get(self.slug_url_kwarg)
+        context["slug_url"] = self.kwargs.get('category_slug')
+        context["search_query"] = self.request.GET.get("q")  # Передаем запрос для отображения в шаблоне
         return context
-
-
 class ProductView(DetailView):
-
-    # model = Products
-    # slug_field = "slug"
     template_name = "goods/product.html"
     slug_url_kwarg = "product_slug"
     context_object_name = "product"
 
     def get_object(self, queryset=None):
-        product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
-        return product
-    
+        # Используем get_object_or_404 для обработки отсутствующего продукта
+        return get_object_or_404(Products, slug=self.kwargs.get(self.slug_url_kwarg))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = self.object.name
+        return context
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

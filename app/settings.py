@@ -90,13 +90,14 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'home',
-        'USER': 'home',
-        'PASSWORD': 'home',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'postgres',           # Имя базы данных
+        'USER': 'postgres',           # Имя пользователя
+        'PASSWORD': 'Temurov2010',       # Пароль пользователя
+        'HOST': 'localhost',           # Обычно это localhost
+        'PORT': '5432',                # Порт по умолчанию для PostgreSQL
     }
 }
+
 
 
 CACHES = {
