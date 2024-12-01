@@ -1,3 +1,13 @@
+import os
+import dj_database_url
+
+# Строка подключения, которую ты получил для базы данных
+
+# Использование dj_database_url для конфигурации базы данных
+
+
+
+
 """
 Django settings for app project.
 
@@ -88,14 +98,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres_ai62',           # Имя базы данных
-        'USER': 'postgres_ai62_user',           # Имя пользователя
-        'PASSWORD': 'OwemVha37Fv00JSE8JeuN30w7loQfTKd',       # Пароль пользователя
-        'HOST': 'localhost',           # Обычно это localhost
-        'PORT': '5432',                # Порт по умолчанию для PostgreSQL
-    }
+    'default': dj_database_url.config(default=DATABASE_URL)
 }
 
 
