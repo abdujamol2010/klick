@@ -1,13 +1,3 @@
-import os
-import dj_database_url
-
-# Строка подключения, которую ты получил для базы данных
-
-# Использование dj_database_url для конфигурации базы данных
-
-
-
-
 """
 Django settings for app project.
 
@@ -33,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ld)8k$gfoow^#9-6mm@palg6l9d)&l!5ng#m2@=msxhq353g#2'
+SECRET_KEY = 'django-insecure-ld)8k$gfoow^#9-6mm@palg6l9d)&l!5ng'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -96,10 +86,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(default='postgresql://postgres_ai62_user:OwemVha37Fv00JSE8JeuN30w7loQfTKd@dpg-ct65tqi3esus73fda11g-a.oregon-postgres.render.com/postgres_ai62')
 }
+
+
 
 
 
