@@ -6,6 +6,15 @@ from django.shortcuts import get_object_or_404
 from goods.models import Products
 from goods.utils import q_search
 
+from django.contrib.auth.models import User
+from django.http import HttpResponse
+
+def create_superuser(request):
+    # Создание суперпользователя
+    User.objects.create_superuser('admin', 'admin@example.com', 'password123')
+    return HttpResponse('Superuser created successfully!')
+
+
 
 class CatalogView(ListView):
     model = Products
