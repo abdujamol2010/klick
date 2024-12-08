@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
 
-    "debug_toolbar",
 
     'main',
     'goods',
@@ -44,7 +42,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -128,7 +125,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # INTERNAL_IPS — для debug_toolbar, если используешь
 INTERNAL_IPS = [
-    "127.0.0.1",
 ]
 
 # Default primary key field type
@@ -142,7 +138,4 @@ LOGIN_URL = '/user/login/'
 LOGIN_REDIRECT_URL = '/'
 
 
-# Для debug_toolbar
-if DEBUG:
-    import mimetypes
-    mimetypes.add_type("application/javascript", ".js", True)
+
